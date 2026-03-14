@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Axolotls — Nature's Most Extraordinary Creature</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,600;0,700;1,300;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'DM Sans', sans-serif; background: #fafaf7; color: #1c1c1c; overflow-x: hidden; }
+
+:root {
+  --coral: #ff6b5b;
+  --teal: #00b4a6;
+  --gold: #f5a623;
+  --lavender: #9b72cf;
+  --sage: #5a9e6f;
+  --ink: #1a1a2e;
+  --warm: #faf6f0;
+}
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 1rem 2rem;
+  display: flex; justify-content: space-between; align-items: center;
+  background: rgba(250,250,247,0.88);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+.nav-logo { font-family: 'Fraunces', serif; font-weight: 600; font-size: 18px; color: var(--ink); }
+.nav-logo em { color: var(--teal); font-style: italic; }
+.nav-links { display: flex; gap: 2rem; }
+.nav-links a { font-size: 13px; color: #666; text-decoration: none; font-weight: 500; transition: color 0.2s; }
+.nav-links a:hover { color: var(--ink); }
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  padding: 8rem 4rem 4rem;
+  gap: 4rem;
+  background: var(--warm);
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -100px; right: -100px;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(0,180,166,0.1) 0%, transparent 65%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -80px; left: -80px;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(255,107,91,0.08) 0%, transparent 65%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.hero-text { position: relative; z-index: 1; }
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 12px; font-weight: 500; letter-spacing: 0.15em;
+  text-transform: uppercase; color: var(--teal);
+  margin-bottom: 1.5rem;
+}
+.hero-eyebrow::before { content: ''; display: block; width: 24px; height: 1px; background: var(--teal); }
+.hero h1 {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(3rem, 5vw, 5.5rem);
+  font-weight: 300;
+  line-height: 1.08;
+  color: var(--ink);
+  margin-bottom: 1.5rem;
+}
+.hero h1 em { font-style: italic; color: var(--coral); }
+.hero h1 strong { font-weight: 700; }
+.hero-desc { font-size: 1.05rem; color: #555; line-height: 1.8; max-width: 420px; margin-bottom: 2rem; }
+.hero-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.tag {
+  padding: 6px 14px; border-radius: 100px; font-size: 12px; font-weight: 500;
+  border: 1.5px solid;
+}
+.tag-coral { background: #fff3f2; color: var(--coral); border-color: #ffc5c0; }
+.tag-teal { background: #f0fdfc; color: var(--teal); border-color: #9ee8e3; }
+.tag-gold { background: #fffbf0; color: #b87800; border-color: #fcd97a; }
+.tag-lavender { background: #f8f3ff; color: var(--lavender); border-color: #d9c3f5; }
+.hero-visual { position: relative; z-index: 1; }
+.hero-img-frame {
+  position: relative;
+  border-radius: 40% 60% 55% 45% / 45% 50% 50% 55%;
+  overflow: hidden;
+  aspect-ratio: 4/5;
+  background: #d4f4f1;
+  box-shadow: 0 30px 80px rgba(0,180,166,0.2), 0 8px 24px rgba(0,0,0,0.08);
+}
+.hero-img-frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.hero-float-stat {
+  position: absolute;
+  background: #fff;
+  border-radius: 16px;
+  padding: 12px 18px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+  font-size: 13px;
+}
+.hfs-1 { bottom: 12%; left: -15%; }
+.hfs-2 { top: 15%; right: -12%; }
+.hfs-val { font-family: 'Fraunces', serif; font-size: 1.8rem; font-weight: 600; line-height: 1; }
+.hfs-label { font-size: 11px; color: #888; margin-top: 2px; }
+.v-coral { color: var(--coral); }
+.v-teal { color: var(--teal); }
+
+/* TICKER */
+.ticker-bar { background: var(--ink); overflow: hidden; padding: 0; }
+.ticker-track { display: flex; gap: 3rem; padding: 14px 0; animation: ticker 28s linear infinite; white-space: nowrap; }
+.ticker-item { font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.8); flex-shrink: 0; display: flex; align-items: center; gap: 10px; }
+.ticker-sep { width: 4px; height: 4px; border-radius: 50%; background: var(--coral); flex-shrink: 0; }
+@keyframes ticker { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+
+/* SECTIONS */
+section { padding: 7rem 4rem; }
+.container { max-width: 1100px; margin: 0 auto; }
+.label {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 11px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase;
+  color: #999; margin-bottom: 1.25rem;
+}
+.label::before { content: ''; display: block; width: 20px; height: 1px; background: currentColor; }
+.section-h {
+  font-family: 'Fraunces', serif; font-weight: 300;
+  font-size: clamp(2.2rem, 3.5vw, 3.5rem);
+  line-height: 1.15; color: var(--ink); margin-bottom: 1rem;
+}
+.section-h em { font-style: italic; }
+.section-h strong { font-weight: 700; }
+
+/* FACTS GRID */
+.facts-section { background: #fff; }
+.facts-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5px; margin-top: 3.5rem; background: rgba(0,0,0,0.06); border-radius: 20px; overflow: hidden; }
+.fact-block {
+  background: #fff; padding: 2rem;
+  transition: background 0.2s;
+  cursor: default;
+}
+.fact-block:hover { background: var(--warm); }
+.fact-num {
+  font-family: 'Fraunces', serif; font-size: 3rem; font-weight: 600;
+  line-height: 1; margin-bottom: 0.75rem;
+}
+.fn-coral { color: var(--coral); }
+.fn-teal { color: var(--teal); }
+.fn-gold { color: var(--gold); }
+.fn-lavender { color: var(--lavender); }
+.fn-sage { color: var(--sage); }
+.fact-block h3 { font-family: 'Fraunces', serif; font-weight: 600; font-size: 1.1rem; color: var(--ink); margin-bottom: 0.6rem; }
+.fact-block p { font-size: 14px; color: #666; line-height: 1.7; }
+
+/* GALLERY */
+.gallery-section { background: var(--warm); padding-bottom: 5rem; }
+.gallery-layout { display: grid; grid-template-columns: 2fr 1fr 1fr; grid-template-rows: auto auto; gap: 12px; margin-top: 3rem; }
+.gl-main { grid-row: span 2; border-radius: 24px; overflow: hidden; background: #cceae8; }
+.gl-sm { border-radius: 18px; overflow: hidden; background: #ffe8e5; }
+.gl-sm:last-child { background: #f3ecff; }
+.gl-item { position: relative; overflow: hidden; }
+.gl-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s; }
+.gl-item:hover img { transform: scale(1.04); }
+.gl-main { aspect-ratio: auto; min-height: 440px; }
+.gl-sm { aspect-ratio: 4/3; }
+.gl-caption {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 1.5rem 1.25rem 1rem;
+  background: linear-gradient(transparent, rgba(26,26,46,0.65));
+  color: #fff; font-size: 13px; font-weight: 500;
+  opacity: 0; transition: opacity 0.3s;
+}
+.gl-item:hover .gl-caption { opacity: 1; }
+.gallery-more { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 12px; }
+.gm-item { border-radius: 18px; overflow: hidden; aspect-ratio: 1; background: #e8f5e9; }
+.gm-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s; }
+.gm-item:hover img { transform: scale(1.06); }
+
+/* STATS */
+.stats-section { background: var(--ink); }
+.stats-inner { display: grid; grid-template-columns: 1fr 2fr; gap: 5rem; align-items: center; }
+.stats-text .section-h { color: #fff; }
+.stats-text .label { color: rgba(255,255,255,0.4); }
+.stats-text p { font-size: 15px; color: rgba(255,255,255,0.6); line-height: 1.8; margin-top: 1rem; }
+.stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: rgba(255,255,255,0.08); border-radius: 20px; overflow: hidden; }
+.stat-cell {
+  background: rgba(255,255,255,0.04); padding: 2rem;
+  transition: background 0.2s;
+}
+.stat-cell:hover { background: rgba(255,255,255,0.08); }
+.stat-val {
+  font-family: 'Fraunces', serif; font-size: 3.5rem; font-weight: 600;
+  line-height: 1; margin-bottom: 6px;
+}
+.stat-unit { font-size: 1.2rem; font-weight: 300; }
+.stat-desc { font-size: 13px; color: rgba(255,255,255,0.5); }
+.sv-coral { color: var(--coral); }
+.sv-teal { color: var(--teal); }
+.sv-gold { color: var(--gold); }
+.sv-lavender { color: var(--lavender); }
+
+/* BIOLOGY */
+.biology-section { background: #fff; }
+.bio-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; margin-top: 3rem; }
+.bio-image { border-radius: 24px; overflow: hidden; background: #d4f4f1; aspect-ratio: 4/5; }
+.bio-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.bio-points { display: flex; flex-direction: column; gap: 1.5rem; }
+.bio-point { display: flex; gap: 1.25rem; align-items: flex-start; }
+.bio-dot { width: 40px; height: 40px; border-radius: 12px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; margin-top: 2px; }
+.bd-coral { background: #fff3f2; }
+.bd-teal { background: #f0fdfc; }
+.bd-gold { background: #fffbf0; }
+.bd-lavender { background: #f8f3ff; }
+.bd-sage { background: #f0faf3; }
+.bio-point h4 { font-family: 'Fraunces', serif; font-weight: 600; font-size: 1.05rem; color: var(--ink); margin-bottom: 4px; }
+.bio-point p { font-size: 14px; color: #666; line-height: 1.7; }
+
+/* LIFECYCLE */
+.lifecycle-section { background: var(--warm); }
+.lc-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; margin-top: 3rem; position: relative; }
+.lc-steps::before { content:''; position:absolute; top:28px; left:8%; right:8%; height:1px; background: linear-gradient(90deg, var(--coral), var(--teal)); }
+.lc-step { text-align: center; }
+.lc-icon {
+  width: 56px; height: 56px; border-radius: 16px; margin: 0 auto 1.25rem;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem; border: 2px solid #fff;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  position: relative; z-index: 1;
+  background: #fff;
+}
+.lc-step h4 { font-family: 'Fraunces', serif; font-weight: 600; font-size: 1rem; color: var(--ink); margin-bottom: 6px; }
+.lc-step p { font-size: 13px; color: #666; line-height: 1.6; }
+
+/* CONSERVATION */
+.conservation-section { background: #fff; }
+.cons-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; margin-top: 3rem; }
+.cons-img { border-radius: 24px; overflow: hidden; background: #e8f5e9; aspect-ratio: 5/6; }
+.cons-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.cons-status {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: #fff3f2; border: 1.5px solid #ffc5c0;
+  border-radius: 100px; padding: 8px 16px;
+  font-size: 12px; font-weight: 500; color: var(--coral); margin-bottom: 1.5rem;
+}
+.status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--coral); animation: blink 1.5s ease infinite; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+.cons-text p { font-size: 15px; color: #555; line-height: 1.85; margin-bottom: 1rem; }
+.cons-text p strong { color: var(--ink); font-weight: 600; }
+.threat-list { list-style: none; margin-top: 1.25rem; display: flex; flex-direction: column; gap: 0.6rem; }
+.threat-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: #555; line-height: 1.5; }
+.threat-list li::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--coral); flex-shrink: 0; margin-top: 6px; }
+
+/* FOOTER */
+footer { background: var(--ink); padding: 4rem 4rem 3rem; }
+.footer-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: flex-end; }
+.footer-brand .nav-logo { font-size: 22px; }
+.footer-brand p { font-size: 13px; color: rgba(255,255,255,0.4); margin-top: 6px; line-height: 1.7; }
+.footer-links { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+.footer-links a { font-size: 13px; color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: var(--teal); }
+
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; padding: 7rem 2rem 3rem; text-align: center; }
+  .hero-desc { margin: 0 auto 2rem; }
+  .hero-tags { justify-content: center; }
+  .hero-float-stat { display: none; }
+  .facts-grid { grid-template-columns: 1fr 1fr; }
+  .stats-inner { grid-template-columns: 1fr; gap: 3rem; }
+  .bio-grid, .cons-layout { grid-template-columns: 1fr; gap: 2rem; }
+  .lc-steps { grid-template-columns: 1fr 1fr; }
+  .lc-steps::before { display: none; }
+  .gallery-layout { grid-template-columns: 1fr 1fr; }
+  .gl-main { grid-row: span 1; min-height: 280px; }
+  .footer-inner { flex-direction: column; align-items: flex-start; gap: 2rem; }
+  .footer-links { align-items: flex-start; }
+  section { padding: 5rem 2rem; }
+}
+@media (max-width: 600px) {
+  .facts-grid { grid-template-columns: 1fr; }
+  .stats-grid { grid-template-columns: 1fr; }
+  .lc-steps { grid-template-columns: 1fr; }
+  .gallery-more { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">axolotl<em>.guide</em></div>
+  <div class="nav-links">
+    <a href="#facts">Facts</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#biology">Biology</a>
+    <a href="#conservation">Conservation</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <div class="hero-eyebrow">Ambystoma mexicanum</div>
+    <h1>Nature's most<br><em>extraordinary</em><br><strong>salamander</strong></h1>
+    <p class="hero-desc">The axolotl defies biology — permanently juvenile, endlessly regenerating, and smiling through it all. One of Earth's most fascinating creatures.</p>
+    <div class="hero-tags">
+      <span class="tag tag-teal">Regeneration</span>
+      <span class="tag tag-coral">Neoteny</span>
+      <span class="tag tag-gold">Critically Endangered</span>
+      <span class="tag tag-lavender">Mexico City</span>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-img-frame">
+      <img src="photo1.jpg" alt="Axolotl">
+    </div>
+    <div class="hero-float-stat hfs-1">
+      <div class="hfs-val v-coral">15 yrs</div>
+      <div class="hfs-label">Max lifespan</div>
+    </div>
+    <div class="hero-float-stat hfs-2">
+      <div class="hfs-val v-teal">60 days</div>
+      <div class="hfs-label">To regrow a limb</div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-bar">
+  <div class="ticker-track" id="ticker">
+    <span class="ticker-item"><span class="ticker-sep"></span>Axolotls can regenerate entire limbs with no scarring</span>
+    <span class="ticker-item"><span class="ticker-sep"></span>Native only to Lake Xochimilco, Mexico City</span>
+    <span class="ticker-item"><span class="ticker-sep"></span>Their genome is 10 times larger than a human's</span>
+    <span class="ticker-item"><span class="ticker-sep"></span>Fewer than 1,000 estimated to remain in the wild</span>
+    <span class="ticker-item"><span class="ticker-sep"></span>Can regenerate heart tissue and portions of the brain</span>
+    <span class="ticker-item"><span class="ticker-sep"></span>Breathe through gills, skin, and rudimentary lungs simultaneously</span>
+    <span class="ticker-item"><span class="ticker-sep"></span>Named after the Aztec god Xolotl — meaning water dog</span>
+    <span class="ticker-item"><span class="ticker-sep"></span>Axolotls can regenerate entire limbs with no scarring</span>
+    <span class="ticker-item"><span class="ticker-sep"></span>Native only to Lake Xochimilco, Mexico City</span>
+    <span class="ticker-item"><span class="ticker-sep"></span>Their genome is 10 times larger than a human's</span>
+    <span class="ticker-item"><span class="ticker-sep"></span>Fewer than 1,000 estimated to remain in the wild</span>
+    <span class="ticker-item"><span class="ticker-sep"></span>Can regenerate heart tissue and portions of the brain</span>
+    <span class="ticker-item"><span class="ticker-sep"></span>Breathe through gills, skin, and rudimentary lungs simultaneously</span>
+    <span class="ticker-item"><span class="ticker-sep"></span>Named after the Aztec god Xolotl — meaning water dog</span>
+  </div>
+</div>
+
+<!-- FACTS -->
+<section class="facts-section" id="facts">
+  <div class="container">
+    <div class="label">What makes them special</div>
+    <h2 class="section-h">Six reasons axolotls<br>are <em>unlike anything</em> else</h2>
+    <div class="facts-grid">
+      <div class="fact-block">
+        <div class="fact-num fn-coral">01</div>
+        <h3>Superhuman Regeneration</h3>
+        <p>Axolotls can fully regrow lost limbs, sections of the heart, and even parts of the brain — with perfect function and zero scarring. No other vertebrate comes close.</p>
+      </div>
+      <div class="fact-block">
+        <div class="fact-num fn-teal">02</div>
+        <h3>Permanent Juvenility</h3>
+        <p>Through a trait called neoteny, axolotls reach sexual maturity while retaining their larval features for life — external gills, aquatic lifestyle, and all. They never "grow up."</p>
+      </div>
+      <div class="fact-block">
+        <div class="fact-num fn-gold">03</div>
+        <h3>A Colossal Genome</h3>
+        <p>At 32 billion base pairs, the axolotl genome is 10 times larger than a human's. Fully sequencing it took scientists over a decade and was only completed in 2018.</p>
+      </div>
+      <div class="fact-block">
+        <div class="fact-num fn-lavender">04</div>
+        <h3>Triple Respiration</h3>
+        <p>Axolotls breathe in three ways at once — through their feathery external gills, through their skin, and with rudimentary lungs. Nature's most versatile breathing system.</p>
+      </div>
+      <div class="fact-block">
+        <div class="fact-num fn-sage">05</div>
+        <h3>Aztec Mythology</h3>
+        <p>The Aztecs believed the axolotl was the god Xolotl — twin of Quetzalcoatl — who transformed into a salamander to escape sacrifice. The name translates to "water dog."</p>
+      </div>
+      <div class="fact-block">
+        <div class="fact-num fn-coral">06</div>
+        <h3>Ambush Predator</h3>
+        <p>Behind the perpetual smile is a formidable predator. Axolotls lunge at prey using a vacuum-suction strike, snapping up worms, crustaceans, and small fish in milliseconds.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery-section" id="gallery">
+  <div class="container">
+    <div class="label">Photography</div>
+    <h2 class="section-h">See them <em>up close</em></h2>
+    <div class="gallery-layout">
+      <div class="gl-item gl-main">
+        <img src="photo2.jpg" alt="Axolotl main">
+        <div class="gl-caption">Leucistic morph — the most recognizable variety</div>
+      </div>
+      <div class="gl-item gl-sm">
+        <img src="photo3.jpg" alt="Axolotl gills">
+        <div class="gl-caption">Feathery external gill plumes</div>
+      </div>
+      <div class="gl-item gl-sm">
+        <img src="photo4.jpg" alt="Axolotl face">
+        <div class="gl-caption">The signature axolotl smile</div>
+      </div>
+    </div>
+    <div class="gallery-more">
+      <div class="gm-item"><img src="photo5.jpg" alt="Axolotl 5"></div>
+      <div class="gm-item"><img src="photo6.jpg" alt="Axolotl 6"></div>
+      <div class="gm-item"><img src="photo7.jpg" alt="Axolotl 7"></div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats-section">
+  <div class="container">
+    <div class="stats-inner">
+      <div class="stats-text">
+        <div class="label" style="color:rgba(255,255,255,0.3)">By the numbers</div>
+        <h2 class="section-h" style="color:#fff">Axolotl <em>facts</em> in figures</h2>
+        <p>A few numbers that illustrate just how remarkable these animals truly are.</p>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-cell">
+          <div class="stat-val sv-coral">15 <span class="stat-unit">yrs</span></div>
+          <div class="stat-desc">Maximum lifespan in captivity</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-val sv-teal">32B</div>
+          <div class="stat-desc">Base pairs in their genome</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-val sv-gold">400</div>
+          <div class="stat-desc">Eggs laid in a single clutch</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-val sv-lavender">&lt;1k</div>
+          <div class="stat-desc">Estimated wild population remaining</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BIOLOGY -->
+<section class="biology-section" id="biology">
+  <div class="container">
+    <div class="label">Biology</div>
+    <h2 class="section-h">Built <em>differently</em><br>by design</h2>
+    <div class="bio-grid">
+      <div class="bio-image">
+        <img src="photo8.jpg" alt="Axolotl biology">
+      </div>
+      <div class="bio-points">
+        <div class="bio-point">
+          <div class="bio-dot bd-coral">🔬</div>
+          <div>
+            <h4>Regenerative Biology</h4>
+            <p>Remove up to 20% of an axolotl's heart ventricle and it fully regenerates within 60 days — no scarring, no loss of function. Researchers are studying this to develop treatments for human cardiac injury.</p>
+          </div>
+        </div>
+        <div class="bio-point">
+          <div class="bio-dot bd-teal">🌡️</div>
+          <div>
+            <h4>Cold Water Specialists</h4>
+            <p>Axolotls evolved in the cold, high-altitude lakes of central Mexico. They thrive between 14–20°C (57–68°F). Sustained temperatures above 24°C cause physiological stress.</p>
+          </div>
+        </div>
+        <div class="bio-point">
+          <div class="bio-dot bd-gold">🎨</div>
+          <div>
+            <h4>Color Morphs</h4>
+            <p>Wild axolotls are dark brown with gold flecks. Captive breeding has produced leucistic (pink, dark eyes), albino, golden albino, and melanoid (jet black) color morphs.</p>
+          </div>
+        </div>
+        <div class="bio-point">
+          <div class="bio-dot bd-lavender">🧬</div>
+          <div>
+            <h4>Immune Tolerance</h4>
+            <p>Axolotls can accept transplanted limbs and organs from other axolotls without immune rejection — a phenomenon that continues to fascinate transplant researchers worldwide.</p>
+          </div>
+        </div>
+        <div class="bio-point">
+          <div class="bio-dot bd-sage">🌊</div>
+          <div>
+            <h4>Aquatic for Life</h4>
+            <p>While thyroid hormone can induce metamorphosis in laboratory conditions, wild axolotls never naturally transform. They remain fully aquatic and gill-breathing throughout their lives.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LIFECYCLE -->
+<section class="lifecycle-section">
+  <div class="container">
+    <div class="label">Life stages</div>
+    <h2 class="section-h">The axolotl <em>lifecycle</em></h2>
+    <div class="lc-steps">
+      <div class="lc-step">
+        <div class="lc-icon">🥚</div>
+        <h4>Egg</h4>
+        <p>Females lay 100–400 eggs individually attached to plants. Eggs hatch in 2–3 weeks depending on water temperature.</p>
+      </div>
+      <div class="lc-step">
+        <div class="lc-icon">🌱</div>
+        <h4>Larva</h4>
+        <p>Hatchlings are tiny and translucent. External gills form immediately and they begin hunting micro-organisms within days.</p>
+      </div>
+      <div class="lc-step">
+        <div class="lc-icon">🦎</div>
+        <h4>Juvenile</h4>
+        <p>By 6 months they resemble miniature adults. Unlike other salamanders they show no signs of metamorphosis.</p>
+      </div>
+      <div class="lc-step">
+        <div class="lc-icon">✦</div>
+        <h4>Adult (Neotenic)</h4>
+        <p>Sexually mature by 12–18 months, still in larval form. They retain gills, fins, and their fully aquatic lifestyle for life.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONSERVATION -->
+<section class="conservation-section" id="conservation">
+  <div class="container">
+    <div class="label">Conservation</div>
+    <h2 class="section-h">Thriving in captivity,<br><em>vanishing</em> in the wild</h2>
+    <div class="cons-layout">
+      <div class="cons-img">
+        <img src="photo9.jpg" alt="Axolotl in habitat">
+      </div>
+      <div class="cons-text">
+        <div class="cons-status"><span class="status-dot"></span>IUCN Red List: Critically Endangered</div>
+        <p>Wild axolotls exist in a single location on Earth — <strong>Lake Xochimilco</strong>, a network of ancient canals on the southern edge of Mexico City. Surveys now estimate fewer than 1,000 individuals remain.</p>
+        <p>The paradox: axolotls are thriving globally in captivity — millions are kept as pets and research subjects. Yet their wild population has collapsed within a generation.</p>
+        <ul class="threat-list">
+          <li>Urban expansion draining and polluting the Xochimilco canal system</li>
+          <li>Invasive tilapia and carp introduced in the 1970s prey on eggs and juveniles</li>
+          <li>Agricultural runoff and sewage contaminating water quality</li>
+          <li>Climate change raising water temperatures beyond their tolerance range</li>
+        </ul>
+        <p style="margin-top:1.25rem">Conservation groups are restoring Xochimilco's traditional <em>chinampas</em> (floating gardens) and reintroducing captive-bred axolotls to protected canal sections.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="nav-logo" style="color:#fff">axolotl<em>.guide</em></div>
+      <p>Information sourced from peer-reviewed literature<br>and conservation organizations.</p>
+    </div>
+    <div class="footer-links">
+      <a href="https://www.iucnredlist.org/species/1095/53947343" target="_blank">IUCN Red List</a>
+      <a href="https://en.wikipedia.org/wiki/Axolotl" target="_blank">Wikipedia</a>
+      <a href="https://www.axolotl.org" target="_blank">Axolotl.org</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function() {
+  var t = document.getElementById('ticker');
+  if (t) t.parentNode.appendChild(t.cloneNode(true));
+})();
+</script>
+</body>
+</html>
